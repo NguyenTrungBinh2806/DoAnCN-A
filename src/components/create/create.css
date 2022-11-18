@@ -1,0 +1,57 @@
+
+.create-cv .cv-content{
+    width: 80%;
+    padding-bottom: 30px;
+    /* tạo bóng cho card */
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.5);
+    margin: 30px auto;
+    display: flex;
+}
+.left-content{
+    width: 20%;
+    min-width: 150px;
+    background-color: white;
+    float: left;
+    border-right: 1px solid gray;
+}
+
+
+.right-content{
+    width: 77%;
+    background-color: white;
+    float: right;
+    display: flex;
+    
+}
+
+.title{
+    padding-left: 40px;
+    color: #666d73;
+}
+hr{
+    height: 2px;
+    background-color: #d5d5d7;
+}
+.left{
+    flex: 90%;
+    background-color: white;
+}
+.right{
+    flex: 30%;
+    background-color: #DDDDDD;
+    border-bottom-left-radius: 10%;
+    border-bottom-right-radius: 10%;
+}
+.information-item{
+    text-align: left;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.label-cv{
+    font-size: 18px;
+    font-weight: 600;
+    color: #0066CC;
+}
+
+
+

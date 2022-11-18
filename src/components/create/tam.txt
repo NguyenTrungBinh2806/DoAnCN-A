@@ -1,0 +1,24 @@
+if(isLogin()){
+                const db = getFirestore();
+                const docRef = doc(db, "cells", docId, "information", docId);
+                setDoc(docRef, {
+                    name: nameCv,
+                    // convert the date to time, dd/mm/yyyy
+                    date: new Date().toLocaleDateString(),
+                });
+                await getUserData().then((data) => {
+                    const idToken = data;
+                    const docRef = doc(db, "profiles", idToken, "cv");
+                    // get data and push to array
+                    getDoc(docRef).then((docSnap) => {
+                        if (docSnap.exists()) {
+                            setCvId(docSnap.data().cvIds);
+                            cvId.push(docId);
+                            setDoc(docRef, {
+                                cvIds: cvId
+                            });
+                        }
+                    });
+                });
+                // redirect to cv page
+                window.location.href = '/create';

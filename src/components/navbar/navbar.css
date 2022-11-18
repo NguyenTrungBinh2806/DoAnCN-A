@@ -1,0 +1,61 @@
+.navbar{
+    background-color: #3366CC;
+    color: white;
+    width: 100%;
+    height: 50px;
+    font-weight: 500;
+    padding-top: 15px;
+}
+
+.content-link{
+    color:white;
+    /* no underline */
+    text-decoration: none;
+    margin-left: 3%;
+    display: flex;
+    flex-direction: row;
+}
+.link{
+    color:white;
+    /* no underline */
+    text-decoration: none;
+    margin-left: 3%;
+}
+.link:hover{
+    color: #0066FF;
+}
+.span{
+    flex: 1;
+}
+.info{
+    margin-right: 3%;
+    display: inline-flex;
+}
+.login{
+    color:white;
+    /* no underline */
+    text-decoration: none;
+}
+.login:hover{
+    color: #0066FF;
+}
+.dialog-login{
+    position: absolute;
+}
+.register{
+    color:white;
+    /* no underline */
+    text-decoration: none;
+}
+.register:hover{
+    color: #0066FF;
+    cursor: pointer;
+}
+.name{
+    padding-top: 10px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+.name:hover{
+    color: #0066FF;
+}
