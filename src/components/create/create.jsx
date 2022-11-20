@@ -62,13 +62,13 @@ function CreateCV() {
                         <hr/>
                         <Menu.OptionsGroup
                             options={[
-                            { label: 'Skill', value: 'Skill', onClick: () => (handleFieldClick('skills')) },
-                            { label: 'Experinece', value: 'Experinece', onClick: () => handleFieldClick('experineces') },
-                            { label: 'Certificate', value: 'Certificate', onClick: () => handleFieldClick('certificates') },
-                            { label: 'Achievement', value: 'Achievement', onClick: () => handleFieldClick('achievements') },
-                            { label: 'Activity', value: 'Activity', onClick: () => handleFieldClick('activities') },
-                            { label: 'Education', value: 'Education', onClick: () => handleFieldClick('educations') },
-                            { label: 'Other information', value: 'Other information', onClick: () => handleFieldClick('other_information') },
+                            { label: 'Skill', value: 'Skill', onClick: () => (handleFieldClick('Skill')) },
+                            { label: 'Experinece', value: 'Experience', onClick: () => handleFieldClick('Experience') },
+                            { label: 'Certificate', value: 'Certificate', onClick: () => handleFieldClick('Certificate') },
+                            { label: 'Achievement', value: 'Achievement', onClick: () => handleFieldClick('Achievement') },
+                            { label: 'Activity', value: 'Activity', onClick: () => handleFieldClick('Activity') },
+                            { label: 'Education', value: 'Education', onClick: () => handleFieldClick('Education') },
+                            { label: 'Other information', value: 'Other information', onClick: () => handleFieldClick('Other_information') },
                             ]}
                             selected={selectedField}
                             onChange={(selected) => setSelectedField(selected)}

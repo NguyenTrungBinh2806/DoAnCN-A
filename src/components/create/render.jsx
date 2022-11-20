@@ -313,10 +313,10 @@ function renderField(field) {
 
 
       );
-    case "Experinece":
+    case "Experience":
       return (
         <div>
-          <h1>Experinece</h1>
+          <h1>Experience</h1>
           <div className="form">
             <div className="tag">
               {ExperineceList.map((Experinece, index) => {

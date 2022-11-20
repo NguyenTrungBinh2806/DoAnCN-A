@@ -35,7 +35,7 @@ function ViewCV(){
 
     }
 
-    const [tabs] = useState(['Search by CV', 'Search by content']);
+    const [tabs] = useState(['Search by ID', 'Search by content']);
 
     const [selectedTab, setSelectedTab] = useState(tabs[0]);
 
@@ -72,15 +72,28 @@ function ViewCV(){
         setDataContent([]);
         dataTam2.forEach(async (id) => {
             const docRef = await getDocs(collection(db, "cells", id, "elements"));
-            docRef.forEach((doc) => {
-                
+            docRef.forEach(async (doc) => {
                 // search gần đúng với data trong elements collection và lấy ra tập data của mà gần đúng
                 if(doc.data().data.toString().toLowerCase().includes(searchContent.toString().toLowerCase())){
                     // push docidCell field in to doc.data()
                     const dataTam4 = doc.data();
                     dataTam4.docidCell = id;
+
+                    // push infor user from dataTam 2 to dataTam 4
+                    const docRef3 = getDocs(collection(db, "profiles"));
+                    for(const doc of (await docRef3).docs){
+                        if(doc.data().cvIds.includes(id)){
+                            dataTam4.name = doc.data().name;
+                            dataTam4.imageUrl = doc.data().imageUrl;
+                        }
+                    }
+
+
                     dataTam3.push(dataTam4);
                     // dataTam3.push(doc.data());
+                    // from id to get user data has id in cvIds
+                     
+
                 }
                 if(dataTam3.length > 0){
                     setLoadingContent(false);
@@ -100,14 +113,15 @@ function ViewCV(){
             })
             
         })
+        console.log(dataTam3);
         setDataContent(dataTam3);
-        console.log(dataContent);
+        // console.log(dataContent);
     }
 
     return (
         <div className="view">
             <Navbar />
-            <button onClick={handleSearchContent}>Search</button>
+            {/* <button onClick={handleSearchContent}>Search</button> */}
                {/* search icon in input field */}
                 {/* <form onSubmit={handleSearch}>
                     <label htmlFor="search" className='label-search'>Search</label>
@@ -126,7 +140,6 @@ function ViewCV(){
                                 className="btn-tab-view-item"
                                 onClick={() => handleTabChange(tab)}
                                 // set style underline for active tab, color for inactive tab
-
                                 style={{ borderBottom: selectedTab === tab ? '4px solid #2f80ed' : 'none' 
                                 // active tab color
                                 , color: selectedTab === tab ? '#2f80ed' : '#000000' }}
@@ -137,17 +150,16 @@ function ViewCV(){
                     </div>
                     <div className="tab-view-content">
                         {
-                            selectedTab === 'Search by CV' ? (
+                            selectedTab === 'Search by ID' ? (
                                 <div className="search-by-cv">
                                     <form onSubmit={handleSearch}>
                                         {/* <label htmlFor="search" className='label-search'>Search</label> */}
-                                        <br/>
+                                        <h1>Search by ID</h1>
                                         <input type="text" placeholder="Search..." className="input-search" onChange={(e) => setSearch(e.target.value)}/>
                                         <button type="submit" className="btn-search">
                                             <SearchIcon size={14} color="white" className="icon-search"/>Search
                                         </button>
                                     </form>
-
                                     {
                                         loading ? (
                                             <div className="loading">
@@ -210,6 +222,10 @@ function ViewCV(){
                                                                     dataContent.map((item, index) => (
                                                                        
                                                                         <div className="card-search-content" key={index}>
+                                                                            <div className="author-infor">
+                                                                                <img src={item.imageUrl} alt="avatar" className="avatar-author"/>
+                                                                                <p>{item.name}</p>
+                                                                            </div>
                                                                             <div className="card-search-content-header">
                                                                                 <h3>{item.type}</h3>
                                                                             </div>

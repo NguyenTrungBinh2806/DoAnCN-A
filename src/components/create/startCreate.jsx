@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Navbar from '../navbar/navbar';
-import { Button, AddIcon, Pane, Badge, DocumentIcon, MoreIcon, Dialog, toaster, SortIcon, ManualIcon, SideSheet  } from 'evergreen-ui';
+import { Button, AddIcon, Pane, Badge, Tooltip, Position, DocumentIcon, MoreIcon, Dialog, toaster, SortIcon, ManualIcon, SideSheet  } from 'evergreen-ui';
 import Login from '../login/login';
 import { getUserData, isLogin } from '../share/authService';
 import {getFirestore, doc, getDoc, setDoc, getDocs, collection} from 'firebase/firestore';
@@ -142,6 +142,10 @@ function StartCreate(){
              setIsShowView(true);
     }
 
+    const handleViewAll = (docid) => {
+        window.location.href = '/view/'+ docid;
+    }
+
     
     return(
         <div>
@@ -163,8 +167,7 @@ function StartCreate(){
                 </Dialog>
                 <Dialog className='dialog-login' isShown={isShown2} onCloseComplete={() => setIsShown2(false)} hasFooter={false} hasHeader={false}><Login /></Dialog>
                 <div className='Preview-content'>
-                    <div className='title-preview'>
-                        
+                    <div className='title-preview'> 
                         <Pane className='pane-content'>
                             <Badge color="neutral" marginRight={8}>
                                 Skill
@@ -185,22 +188,29 @@ function StartCreate(){
                                 Activity
                             </Badge>
                         </Pane>
-                        <h2>Preview  
-                            <SortIcon className='sort-icon' onClick={() => showCell()} />
+                        <h2>Preview 
+                            <Tooltip content="Click show down to preview your CV list" position={Position.TOP_RIGHT}>
+                                <SortIcon className='sort-icon' onClick={() => showCell()} />
+                            </Tooltip>
                         </h2>
                     </div>
                     <div className='content-preview'>
                         {/* generate a cv array from getCv on UI */}
                         {cvList.map((cv, index) => (
                             <div className='content-card' key={index}>
-                                <h4 className='title-card-render' >{cv.name}</h4>
-                                <DocumentIcon size={100} color="info" className='icon-doc' />
+                                {/* when cv.name so long, it will change cv.name to ... */}
+                                <h4 className='title-content-card-header'>{cv.name.length > 18 ? cv.name.substring(0, 18) + '...' : cv.name}</h4>
+                                {/* <h4 className='title-card-render' >{cv.name}</h4> */}
+                                {/* <DocumentIcon size={100} color="info" className='icon-doc' /> */}
+                                {/* document icon will have size is 10% of screen */}
+                                <DocumentIcon color="info" className='icon-doc' />
                                 <br></br>
-                                <Button appearance="primary" marginY={12}  marginRight={12} className="btn-tab"  onClick={()=>handleEdit(cv.docId)}>Improve</Button>
-                                <Button intent="none" iconBefore={ManualIcon} marginY={12} className="btn-tab"  marginRight={12} onClick={()=>handleview(cv.docId)}>View</Button>
-                                <div className='header-card'>
+                                <Button appearance="primary" marginY={12}  marginRight={12} className="btn-tab"  onClick={()=>handleEdit(cv.docId)}>Edit</Button>
+                                <Button intent="none" iconBefore={ManualIcon} marginY={12} className="btn-tab"  marginRight={12} onClick={()=>handleview(cv.docId)}>History</Button>
+                                <Button intent="success" marginY={12} className="btn-tab-view"  marginRight={12} onClick={()=>handleViewAll(cv.docId)}>View</Button>
+                                {/* <div className='header-card'>
                                     <MoreIcon size={20} color="info" className='icon-more' />
-                                </div>
+                                </div> */}
                             </div>
                         ))}
 
@@ -222,95 +232,9 @@ function StartCreate(){
                                             </div>
                                             <h4>transaction hash: {data.txh}</h4>
                                             </div>
-                                        </li>
-                                        
-                                    
+                                        </li> 
                                 ))}
                                 </ul>
-                               
-                                {/* <ul>
-                                <li>
-                                    <span>3rd January 2020</span>
-                                    <div class="content">
-                                    <h3>What Is Lorem Ipsum?</h3>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                    </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>21st Jun 2019</span>
-                                    <div class="content">
-                                    <h3>What Is Lorem Ipsum?</h3>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                    </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>15th April 2018</span>
-                                    <div class="content">
-                                    <h3>What Is Lorem Ipsum?</h3>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                    </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>22nd Mars 2017</span>
-                                    <div class="content">
-                                    <h3>What Is Lorem Ipsum?</h3>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.
-                                    </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>22nd Mars 2017</span>
-                                    <div class="content">
-                                    <h3>What Is Lorem Ipsum?</h3>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.
-                                    </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>22nd Mars 2017</span>
-                                    <div class="content">
-                                    <h3>What Is Lorem Ipsum?</h3>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.
-                                    </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>22nd Mars 2017</span>
-                                    <div class="content">
-                                    <h3>What Is Lorem Ipsum?</h3>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.
-                                    </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>22nd Mars 2017</span>
-                                    <div class="content">
-                                    <h3>What Is Lorem Ipsum?</h3>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.
-                                    </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span>22nd Mars 2017</span>
-                                    <div class="content">
-                                    <h3>What Is Lorem Ipsum?</h3>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.
-                                    </p>
-                                    </div>
-                                </li>
-                                </ul> */}
                             </div>
                             </SideSheet>
                         </React.Fragment>
