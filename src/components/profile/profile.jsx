@@ -72,7 +72,7 @@ function Profile(){
         });
         setIsShown(false);
         // reload page
-        window.location.reload();
+        // window.location.reload();
     }
 
     const [isShown2, setIsShown2] = useState(false);
@@ -91,7 +91,7 @@ function Profile(){
         // upload image to firebase storage with name of image
         const storage = getStorage();
         const storageRef = ref(storage, files[0].name);
-        const uploadTask = uploadBytesResumable(storageRef, files[0].file);
+        const uploadTask = uploadBytesResumable(storageRef, files[0]);
         uploadTask.on('state_changed',
         (snapshot) => {
             
@@ -102,6 +102,9 @@ function Profile(){
             // Handle unsuccessful uploads
             toaster.danger("Upload image failed!");
         }, async () => {
+            // get storage image upload url
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            console.log('File available at', downloadURL);
             await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                 console.log('File available at', downloadURL);
                 // update image url in firebase
@@ -120,9 +123,13 @@ function Profile(){
               });
         });
     }
+
+
     useEffect(() => {
         getUserData();
-    }, [])
+    }, []);
+
+   
 
     return(
         <div className="profile">
@@ -158,6 +165,8 @@ function Profile(){
                     <p>{userData?.walletAddress}</p>
                     <div className="profile-body-left-button">
                         <button className="profile-body-left-btn" onClick={() => setIsShown2(true)}>Change avatar</button>
+                        {/* <input type="file" id="file" className="input-file" onChange={(e) => setFiles(e.target.files[0])}/>
+                        <button className="profile-body-left-btn" onClick={() => uploadImage()}>Save</button> */}
                     </div>
                 </div>
                 <div className="profile-body-right">

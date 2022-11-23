@@ -66,7 +66,10 @@ function Navbar() {
                         {/* if user is logged in, show avatar and Name, else show login and register button  */}
                         {isLoginState ? (
                             <div className='info'>
-                                <Avatar key={userInfo?.name} name={userInfo?.name} size={40} />
+                                <Avatar key={userInfo?.name} 
+                                name={userInfo?.name} 
+                                src={userInfo?.imageUrl}
+                                size={40} />
                                 <Popover
                                     position={Position.BOTTOM_LEFT}
                                     content={

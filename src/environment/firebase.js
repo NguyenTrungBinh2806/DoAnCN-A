@@ -21,13 +21,30 @@ const firebaseConfig = {
   // appId: "1:863700679432:web:cace00e534b56b99b88abd"
 
   // Mail SV
-  apiKey: "AIzaSyBhCWQ1Xbx5cui8XZ_mbiQUnejqa67Vvyo",
-  authDomain: "doana-2231.firebaseapp.com",
-  projectId: "doana-2231",
-  storageBucket: "doana-2231.appspot.com",
-  messagingSenderId: "874168448874",
-  appId: "1:874168448874:web:88c0ba070df42812a09713",
-  measurementId: "G-LFRGMYXBKK"
+  // apiKey: "AIzaSyBhCWQ1Xbx5cui8XZ_mbiQUnejqa67Vvyo",
+  // authDomain: "doana-2231.firebaseapp.com",
+  // projectId: "doana-2231",
+  // storageBucket: "doana-2231.appspot.com",
+  // messagingSenderId: "874168448874",
+  // appId: "1:874168448874:web:88c0ba070df42812a09713",
+  // measurementId: "G-LFRGMYXBKK"
+
+  // MAi Vy
+  // apiKey: "AIzaSyDrp7l5zlyoiEO2ryHWbNoDczdrwsXVvzo",
+  // authDomain: "doancv-2231.firebaseapp.com",
+  // projectId: "doancv-2231",
+  // storageBucket: "doancv-2231.appspot.com",
+  // messagingSenderId: "620393564465",
+  // appId: "1:620393564465:web:8c2f8e80f12b69e0dec810"
+
+  // Main database
+  apiKey: "AIzaSyAs5saLaiqefGqe7EBV1_0MgOXG-obQlMs",
+  authDomain: "dacn-a-2231.firebaseapp.com",
+  projectId: "dacn-a-2231",
+  storageBucket: "dacn-a-2231.appspot.com",
+  messagingSenderId: "711781498507",
+  appId: "1:711781498507:web:80b148a73d2321aff11e8e",
+  measurementId: "G-YJ9EV26JD1"
 };
 
 // Initialize Firebase

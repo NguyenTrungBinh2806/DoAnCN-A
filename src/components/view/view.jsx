@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import './view.css';
 import Navbar from '../navbar/navbar';
-import { SearchIcon, WarningSignIcon } from 'evergreen-ui';
+import { SearchIcon, WarningSignIcon, Avatar } from 'evergreen-ui';
 import db from '../../environment/firebase';
 import {getFirestore, doc, getDoc, setDoc, getDocs, collection} from 'firebase/firestore';
 function ViewCV(){
@@ -223,7 +223,7 @@ function ViewCV(){
                                                                        
                                                                         <div className="card-search-content" key={index}>
                                                                             <div className="author-infor">
-                                                                                <img src={item.imageUrl} alt="avatar" className="avatar-author"/>
+                                                                                <Avatar src={item.imageUrl} alt="avatar" className="avatar-author" size={40}/>
                                                                                 <p>{item.name}</p>
                                                                             </div>
                                                                             <div className="card-search-content-header">
