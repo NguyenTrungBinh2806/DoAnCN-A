@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Navbar from '../navbar/navbar';
+import QRCode from 'react-qr-code';
 import { Button, AddIcon, Pane, Badge, Tooltip, Position, DocumentIcon, MoreIcon, Dialog, toaster, SortIcon, ManualIcon, SideSheet, WarningSignIcon  } from 'evergreen-ui';
 import Login from '../login/login';
 import { getUserData, isLogin } from '../share/authService';
@@ -251,7 +252,16 @@ function StartCreate(){
                                                         <p key={index} className="item-list">{item}</p>
                                                     ))}
                                             </div>
-                                            <h4>transaction hash: {data.txh}</h4>
+                                            <h4>transaction hash: 
+                                            <br/>
+                                                <a href={`https://goerli.etherscan.io/tx/${data.transaction}`} target="_blank" rel="noopener noreferrer" className='trans-hash-link'>
+                                                    {/* if string more than 20, change to ... */}
+                                                    {data.transaction.length > 60 ? data.transaction.substring(0, 60) + '...' : data.transaction}
+                                                </a>
+                                                <br/>
+                                                <br/>
+                                                <QRCode value={`https://goerli.etherscan.io/tx/${data.transaction}`} size={150} />
+                                            </h4>
                                             </div>
                                         </li> 
                                 ))}

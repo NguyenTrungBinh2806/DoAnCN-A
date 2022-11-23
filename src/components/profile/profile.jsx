@@ -4,7 +4,7 @@ import {getDoc, getFirestore, doc, updateDoc} from 'firebase/firestore';
 import { toaster, Avatar, WarningSignIcon, EditIcon, Dialog, FileUploader, FileCard } from 'evergreen-ui';
 
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-
+import Navbar from '../navbar/navbar';
 function Profile(){
 
     // get id from url
@@ -133,6 +133,7 @@ function Profile(){
 
     return(
         <div className="profile">
+            <Navbar />
             <div className="profile-header">
                 {/* when pointer to avatar, show edit avatar */}
                     <div className="profile-avatar">

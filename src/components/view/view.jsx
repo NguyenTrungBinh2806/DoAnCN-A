@@ -223,7 +223,7 @@ function ViewCV(){
                                                                        
                                                                         <div className="card-search-content" key={index}>
                                                                             <div className="author-infor">
-                                                                                <Avatar src={item.imageUrl} alt="avatar" className="avatar-author" size={40}/>
+                                                                                <Avatar src={item.imageUrl} alt="avatar" className="avatar-author" size={40} name={item.name}/>
                                                                                 <p>{item.name}</p>
                                                                             </div>
                                                                             <div className="card-search-content-header">

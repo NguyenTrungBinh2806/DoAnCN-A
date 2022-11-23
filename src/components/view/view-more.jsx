@@ -3,7 +3,9 @@ import './view-more.css';
 import Navbar from '../navbar/navbar';
 // import firestore and query
 import {getFirestore, doc, getDoc, setDoc, getDocs, collection, query} from 'firebase/firestore';
-import { InfoSignIcon, SideSheet, Tooltip } from 'evergreen-ui';
+import { InfoSignIcon, SideSheet, Tooltip, Avatar } from 'evergreen-ui';
+// import react qr code
+import QRCode from 'react-qr-code';
 function ViewMore() {
 
     // cut id param from url
@@ -166,7 +168,7 @@ function ViewMore() {
                     {
                         userData ? (
                             <div className='user-data-view'>
-                                <img src={userData.imageUrl} alt='user' className='user-image-view'/>
+                                <Avatar src={userData.imageUrl} name={userData.name} size={190} alt='user' className='user-image-view'/>
                                 <h2>{userData.name}</h2>
                                 <br/>
                                 <div className="user-info-view">
@@ -409,6 +411,9 @@ function ViewMore() {
                                                     {/* if string more than 20, change to ... */}
                                                     {data.transaction.length > 60 ? data.transaction.substring(0, 60) + '...' : data.transaction}
                                                 </a>
+                                                <br/>
+                                                <br/>
+                                                <QRCode value={`https://goerli.etherscan.io/tx/${data.transaction}`} size={150} />
                                             </h4>
                                             </Tooltip>
                                             </div>
