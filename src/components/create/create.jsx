@@ -46,6 +46,9 @@ function CreateCV() {
             }
             getInformation();
         }, [idParam])
+
+
+    
                
 
 

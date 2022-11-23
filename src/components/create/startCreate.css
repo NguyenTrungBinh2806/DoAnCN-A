@@ -27,7 +27,9 @@
 .content-preview{
     width: 100%;
     /* min-height: 250px; */
-    display: inline-flex;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
     background-color: #DDDDDD;
 }
 
@@ -95,6 +97,13 @@
 .btn-tab-view:hover{
     background-color: #00bfff;
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.4);
+}
+.cv-empty{
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  color: #1685b8;
+
 }
 
 
@@ -172,3 +181,5 @@
 p .item-list{
     text-decoration: none;
 }
+
+

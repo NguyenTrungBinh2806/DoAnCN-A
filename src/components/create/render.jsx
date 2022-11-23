@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import db from "../../environment/firebase";
 import { collection, getDocs, doc, setDoc, getDoc} from "firebase/firestore";
-import { Badge, Pane, Dialog, toaster } from "evergreen-ui";
+import { Badge, Pane, Dialog, toaster, Overlay, Spinner } from "evergreen-ui";
 import { getUserData } from "../share/authService";
+import { ethers } from "ethers";
+import abi from '../../environment/CreateCV.json';
 import "./render.css";
 function renderField(field) {
   
@@ -161,10 +163,10 @@ function renderField(field) {
   useEffect(() => {
     if (valueList.length > 0 || valueList2.length > 0) {
       setIsShown2(true);
-      console.log("true");
+      // console.log("true");
     } else {
       setIsShown2(false);
-      console.log("false");
+      // console.log("false");
     }
   }, [valueList, valueList2]);
 
@@ -193,7 +195,7 @@ function renderField(field) {
         console.log(cvids);
         // doc is not a function
         if (cvids.includes(id)) {
-          addCells(id);
+          addCells();
         } else {
           alert("Bạn không có quyền truy cập");
         }
@@ -204,21 +206,137 @@ function renderField(field) {
 
 
   };
-  const addCells = async (ids) => {
-    // cut id param
-    // const ids = window.location.href.split("/")[4];
-    const docid = Date.now().toString();
-    const cellsRef = doc(db, "cells", ids, "elements", docid);
-    await setDoc(cellsRef, {
-      id: docid,
-      type: field,
-      data: valueList3,
-      txh: txh,
-      createdAt: new Date().toLocaleString(),
-    });
-    // if success then alert
-    toaster.success("add new " + field + " success");
+
+    
+  const contractAddress = "0x7B8Da7694f88B23fF0505fe8c3458B8c351D30C0";
+
+  const contractABI = abi.abi;
+
+  const connectToBlockchain = async () => {
+      await window.ethereum.request({ method: "eth_requestAccounts" });
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, contractABI, signer);
+      return contract;
   };
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [isOwnerOrManager, setIsOwnerOrManager] = useState(false);
+
+  const checkUser = async () => {
+      const contract = await connectToBlockchain();
+      const walletAddress = await getWalletAddress();
+      const isOwner = await contract.checkUser(walletAddress);
+      return isOwner;
+  };
+
+
+  const getWalletAddress = async () => {
+      const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+      // console.log(accounts[0]);
+      return accounts[0];
+  };
+
+  // const addCells1 = async () => {
+  //   // cut id param
+  //   const ids = window.location.href.split("/")[4];
+  //   const docid = Date.now().toString();
+  //   // const cellsRef = doc(db, "cells", ids, "elements", docid);
+  //   // await setDoc(cellsRef, {
+  //   //   id: docid,
+  //   //   type: field,
+  //   //   data: valueList3,
+  //   //   txh: txh,
+  //   //   createdAt: new Date().toLocaleString(),
+  //   // });
+  //   // // if success then alert
+  //   // toaster.success("add new " + field + " success");
+
+  //   const createdAt = new Date().toLocaleString();
+  //   console.log(createdAt);
+
+  //   // parse dataList3 to string with special character is #
+  //   const data = valueList3.join("#");
+    
+  //   console.log(data);
+  //   // check user is owner or manager and add data to blockchain and firestore
+  // // checkUser();
+
+  //   // if user is owner or manager then add data to blockchain and firestore
+  //   console.log(isOwnerOrManager);
+  //   if (isOwnerOrManager === true) {
+  //     const contract = await connectToBlockchain();
+  //     const walletAddress = await getWalletAddress();
+  //     // add data to blockchain
+  //     // console.log(typeof(field));
+  //     const tx = await contract.addCVDetails(field, createdAt, data,  walletAddress );
+  //     const txh = tx.hash;
+  //     console.log(txh);
+  //     // add data to firestore
+  //     const cellsRef = doc(db, "cells", ids, "elements", docid);
+  //     await setDoc(cellsRef, {
+  //       id: docid,
+  //       type: field,
+  //       data: valueList3,
+  //       txh: txh,
+  //       createdAt: createdAt,
+  //     });
+  //     // if success then alert
+  //     toaster.success("add new " + field + " success");
+  //   } else {
+  //     alert("Bạn không có quyền truy cập");
+  //   }
+
+  // };
+
+  // // };
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [isShowOverlay, setIsShowOverlay] = useState(false);
+
+  const addCells = async () => {
+    const ids = window.location.href.split("/")[4];
+    const docid = Date.now().toString();
+    const createdAt = new Date().toLocaleString();
+    console.log(createdAt);
+    const data = valueList3.join("#");
+    
+    console.log(data);
+
+    const check = await checkUser();
+    try{
+      if (check) {
+        
+        const contract = await connectToBlockchain();
+        setIsShowOverlay(true);
+        const walletAddress = await getWalletAddress();
+        const transaction = await contract.addCVDetails(field, createdAt, data,  walletAddress );
+        await transaction.wait();
+        const txh = transaction.hash;
+        console.log(txh);
+        // add data to firestore
+        const cellsRef = doc(db, "cells", ids, "elements", docid);
+        await setDoc(cellsRef, {
+          id: docid,
+          type: field,
+          data: valueList3,
+          transaction: txh,
+          createdAt: createdAt,
+        });
+        setIsShowOverlay(false);
+        // if success then alert
+        toaster.success("add new " + field + " success");
+      }
+      else{
+        setIsShowOverlay(false);
+        toaster.danger("wallet address is not accepted");
+      }
+    }catch{
+      setIsShowOverlay(false);
+      toaster.danger("add new " + field + " fail");
+    }
+
+  }
+
 
   const confirm = () => {
     // cut id params
@@ -231,6 +349,10 @@ function renderField(field) {
     setIsShown(false);
     setIsShown2(false);
   }
+
+
+
+
   
   switch (field) {
     case "Skill":
@@ -272,6 +394,17 @@ function renderField(field) {
                 }
                 )}
               </Dialog>
+
+              <React.Fragment>
+                {/* turn of click close overlay */}
+                <Overlay isShown={isShowOverlay} shouldCloseOnClick={false} shouldCloseOnEscapePress={false}>
+                  <div className="spinner-load">
+                    <Spinner size={100}  color="green" className="Spinner" />
+                    <p className="text-load">Loading...</p>
+                  </div>
+                  
+                </Overlay>
+              </React.Fragment>
 
             </div>
           </div>
@@ -349,6 +482,16 @@ function renderField(field) {
                 }
                 )}
               </Dialog>
+              <React.Fragment>
+                {/* turn of click close overlay */}
+                <Overlay isShown={isShowOverlay} shouldCloseOnClick={false} shouldCloseOnEscapePress={false}>
+                  <div className="spinner-load">
+                    <Spinner size={100}  color="green" className="Spinner" />
+                    <p className="text-load">Loading...</p>
+                  </div>
+                  
+                </Overlay>
+              </React.Fragment>
             </div>
           </div>
           <div className="tag-list">
@@ -420,6 +563,16 @@ function renderField(field) {
                 }
                 )}
               </Dialog>
+              <React.Fragment>
+                {/* turn of click close overlay */}
+                <Overlay isShown={isShowOverlay} shouldCloseOnClick={false} shouldCloseOnEscapePress={false}>
+                  <div className="spinner-load">
+                    <Spinner size={100}  color="green" className="Spinner" />
+                    <p className="text-load">Loading...</p>
+                  </div>
+                  
+                </Overlay>
+              </React.Fragment>
           </div>
           <div className="tag-list">
             {valueList.map((value) => {
@@ -491,6 +644,16 @@ function renderField(field) {
                 }
                 )}
               </Dialog>
+              <React.Fragment>
+                {/* turn of click close overlay */}
+                <Overlay isShown={isShowOverlay} shouldCloseOnClick={false} shouldCloseOnEscapePress={false}>
+                  <div className="spinner-load">
+                    <Spinner size={100}  color="green" className="Spinner" />
+                    <p className="text-load">Loading...</p>
+                  </div>
+                  
+                </Overlay>
+              </React.Fragment>
           </div>
           <div className="tag-list">
             {valueList.map((value) => {
@@ -561,6 +724,16 @@ function renderField(field) {
                 }
                 )}
               </Dialog>
+              <React.Fragment>
+                {/* turn of click close overlay */}
+                <Overlay isShown={isShowOverlay} shouldCloseOnClick={false} shouldCloseOnEscapePress={false}>
+                  <div className="spinner-load">
+                    <Spinner size={100}  color="green" className="Spinner" />
+                    <p className="text-load">Loading...</p>
+                  </div>
+                  
+                </Overlay>
+              </React.Fragment>
 
           </div>
           <div className="tag-list">
@@ -632,6 +805,16 @@ function renderField(field) {
                 }
                 )}
               </Dialog>
+              <React.Fragment>
+                {/* turn of click close overlay */}
+                <Overlay isShown={isShowOverlay} shouldCloseOnClick={false} shouldCloseOnEscapePress={false}>
+                  <div className="spinner-load">
+                    <Spinner size={100}  color="green" className="Spinner" />
+                    <p className="text-load">Loading...</p>
+                  </div>
+                  
+                </Overlay>
+              </React.Fragment>
 
           </div>
           <div className="tag-list">
@@ -689,6 +872,16 @@ function renderField(field) {
                   }
                   )}
                 </Dialog>
+                <React.Fragment>
+                {/* turn of click close overlay */}
+                <Overlay isShown={isShowOverlay} shouldCloseOnClick={false} shouldCloseOnEscapePress={false}>
+                  <div className="spinner-load">
+                    <Spinner size={100}  color="green" className="Spinner" />
+                    <p className="text-load">Loading...</p>
+                  </div>
+                  
+                </Overlay>
+              </React.Fragment>
 
               </div>
               <div className="tag-list">
@@ -718,6 +911,7 @@ function renderField(field) {
           <h1>add your content</h1>
         </div>
       );
+      
   }
 }
 

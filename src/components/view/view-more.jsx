@@ -3,7 +3,7 @@ import './view-more.css';
 import Navbar from '../navbar/navbar';
 // import firestore and query
 import {getFirestore, doc, getDoc, setDoc, getDocs, collection, query} from 'firebase/firestore';
-import { InfoSignIcon, SideSheet } from 'evergreen-ui';
+import { InfoSignIcon, SideSheet, Tooltip } from 'evergreen-ui';
 function ViewMore() {
 
     // cut id param from url
@@ -402,7 +402,15 @@ function ViewMore() {
                                                         <p key={index} className="item-list">{item}</p>
                                                     ))}
                                             </div>
-                                            <h4>transaction hash: {data.txh}</h4>
+                                            <Tooltip content="Click to check at ETHScan">
+                                            <h4>transaction hash: 
+                                                <br/>
+                                                <a href={`https://goerli.etherscan.io/tx/${data.transaction}`} target="_blank" rel="noopener noreferrer" className='trans-hash-link'>
+                                                    {/* if string more than 20, change to ... */}
+                                                    {data.transaction.length > 60 ? data.transaction.substring(0, 60) + '...' : data.transaction}
+                                                </a>
+                                            </h4>
+                                            </Tooltip>
                                             </div>
                                         </li> 
                                 ))}

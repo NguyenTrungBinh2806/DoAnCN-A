@@ -50,6 +50,12 @@ function Navbar() {
         setIsLoginState(false);
         setUserData(null);
     }
+
+    const handleProfile = () => {
+        // get id Token and link to profile page
+        const data = localStorage.getItem("token");
+        window.location.href = "/profile/" + data;
+    }
         return(
              <div className='navbar'>
                 <div className='content-link'>
@@ -66,8 +72,8 @@ function Navbar() {
                                     content={
                                         <Menu>
                                         <Menu.Group>
-                                            <Menu.Item icon={PeopleIcon}> your information</Menu.Item>
-                                            <Menu.Item icon={EyeOpenIcon}>view your CV</Menu.Item>
+                                            <Menu.Item icon={PeopleIcon} onSelect={handleProfile}>your profile</Menu.Item>
+                                            {/* <Menu.Item icon={EyeOpenIcon}>view your CV</Menu.Item> */}
                                         </Menu.Group>
                                         <Menu.Divider />
                                         <Menu.Group>

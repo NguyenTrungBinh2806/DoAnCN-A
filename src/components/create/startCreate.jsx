@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Navbar from '../navbar/navbar';
-import { Button, AddIcon, Pane, Badge, Tooltip, Position, DocumentIcon, MoreIcon, Dialog, toaster, SortIcon, ManualIcon, SideSheet  } from 'evergreen-ui';
+import { Button, AddIcon, Pane, Badge, Tooltip, Position, DocumentIcon, MoreIcon, Dialog, toaster, SortIcon, ManualIcon, SideSheet, WarningSignIcon  } from 'evergreen-ui';
 import Login from '../login/login';
 import { getUserData, isLogin } from '../share/authService';
 import {getFirestore, doc, getDoc, setDoc, getDocs, collection} from 'firebase/firestore';
@@ -109,7 +109,9 @@ function StartCreate(){
         }
     }
 
+    const [stateShow, setStateShow] = React.useState(false);
     const showCell = async () => {
+        setStateShow(true);
         getCv().then((res) => {
             console.log('aaaaaa');
             setCvList(res);
@@ -195,24 +197,43 @@ function StartCreate(){
                         </h2>
                     </div>
                     <div className='content-preview'>
-                        {/* generate a cv array from getCv on UI */}
-                        {cvList.map((cv, index) => (
-                            <div className='content-card' key={index}>
-                                {/* when cv.name so long, it will change cv.name to ... */}
-                                <h4 className='title-content-card-header'>{cv.name.length > 18 ? cv.name.substring(0, 18) + '...' : cv.name}</h4>
-                                {/* <h4 className='title-card-render' >{cv.name}</h4> */}
-                                {/* <DocumentIcon size={100} color="info" className='icon-doc' /> */}
-                                {/* document icon will have size is 10% of screen */}
-                                <DocumentIcon color="info" className='icon-doc' />
-                                <br></br>
-                                <Button appearance="primary" marginY={12}  marginRight={12} className="btn-tab"  onClick={()=>handleEdit(cv.docId)}>Edit</Button>
-                                <Button intent="none" iconBefore={ManualIcon} marginY={12} className="btn-tab"  marginRight={12} onClick={()=>handleview(cv.docId)}>History</Button>
-                                <Button intent="success" marginY={12} className="btn-tab-view"  marginRight={12} onClick={()=>handleViewAll(cv.docId)}>View</Button>
-                                {/* <div className='header-card'>
-                                    <MoreIcon size={20} color="info" className='icon-more' />
-                                </div> */}
+                        {/* if state show is  true, render cvList */}
+                        {stateShow ?(
+                            // if cvList is not empty, render cvList
+                            cvList.length > 0 ? (
+                                cvList.map((cv, index) => (
+                                    <div className='content-card' key={index}>
+                                        {/* when cv.name so long, it will change cv.name to ... */}
+                                        <h4 className='title-content-card-header'>{cv.name.length > 18 ? cv.name.substring(0, 18) + '...' : cv.name}</h4>
+                                        {/* <h4 className='title-card-render' >{cv.name}</h4> */}
+                                        {/* <DocumentIcon size={100} color="info" className='icon-doc' /> */}
+                                        {/* document icon will have size is 10% of screen */}
+                                        <DocumentIcon color="info" className='icon-doc' />
+                                        <br></br>
+                                        <Button appearance="primary" marginY={12}  marginRight={12} className="btn-tab"  onClick={()=>handleEdit(cv.docId)}>Edit</Button>
+                                        <Button intent="none" iconBefore={ManualIcon} marginY={12} className="btn-tab"  marginRight={12} onClick={()=>handleview(cv.docId)}>History</Button>
+                                        <Button intent="success" marginY={12} className="btn-tab-view"  marginRight={12} onClick={()=>handleViewAll(cv.docId)}>View</Button>
+                                        {/* <div className='header-card'>
+                                            <MoreIcon size={20} color="info" className='icon-more' />
+                                        </div> */}
+                                        
+                                    </div>
+                                    
+                                ))
+                            ):(
+                                <div className="cv-empty">
+                                    <WarningSignIcon size={100} color="warning" className='icon-warning' />
+                                    <h4 className='title-warning'>You don't have any CV</h4>
+                                </div>
+                            )
+                        ):(
+                            <div className="cv-empty">
+                                <h4>Click show down icon to view all your CV</h4>
                             </div>
-                        ))}
+                            )
+                        }
+
+                        
 
                         <React.Fragment>
                             <SideSheet isShown={isShowView} onCloseComplete={() => setIsShowView(false)}>
@@ -239,6 +260,7 @@ function StartCreate(){
                             </SideSheet>
                         </React.Fragment>
                     </div>
+                    
                 </div>
             </div>
         </div>

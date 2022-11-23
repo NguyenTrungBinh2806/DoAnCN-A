@@ -47,6 +47,28 @@ wallet-address input:hover{
 .register-button-submit{
     text-align: center;
 }
+.spinner-load{
+    width: 30%;
+    background-color: white;
+    color: #436EEE;
+    position: relative;
+    margin: 100px auto;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+
+
+}
+
+.spinner-load .Spinner{
+    margin: 0 auto;
+}
+
+.spinner-load p{
+    font-size: 30px;
+}
 
 
 
