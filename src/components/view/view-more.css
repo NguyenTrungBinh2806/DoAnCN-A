@@ -8,7 +8,7 @@
     float: left;
     margin-top: 20px;
     width: 30%;
-    min-height: 600px;
+    min-height: 500px;
     border-right: #c0bdbd 3px solid;
     background-color: white;
 }
@@ -23,6 +23,31 @@
 .user-data-view{
     width: 100%;
     margin: 60px auto;
+}
+/* if width < 780px, text will be ... */
+@media screen and (max-width: 1200px) {
+    .user-data-view{
+        width: 100%;
+        margin: 60px auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    .user-data-view p{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    .user-data-view h3{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+    }
 }
 .user-image-view{
    /* avatar circle */
@@ -50,7 +75,7 @@
 .view-more-content-right-content-left{
     float: left;
     width: 76%;
-    min-height: 600px;
+    min-height: 500px;
     text-align: left;
 }
 .view-more-content-right-content-right{
@@ -100,6 +125,9 @@
 }
 .trans-hash-link{
   color: #f5f5f5;
+}
+.view-more-content-right-content-right-no-data{
+  text-align: center;
 }
 
 

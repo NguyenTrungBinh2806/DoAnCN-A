@@ -55,5 +55,17 @@
 .eyeIcon:hover{
     color: black;
 }
+.forgot-password{
+    text-align: center;
+    color: #006699;
+    padding-bottom: 20px;
+    margin: 0 auto;
+    border: none;
+}
+.forgot-password:hover{
+    color: #0099FF;
+    cursor: pointer;
+}
+
 
 

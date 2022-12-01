@@ -204,7 +204,9 @@ function ViewCV(){
                                 <div className="search-by-content">
                                     <h1>Search by content</h1>
                                     <input type="text" placeholder="Search..." className="input-search" onChange={(e) => setSearchContent(e.target.value)}/>
-                                    <button type="submit" className="btn-search" onClick={handleSearchContent}>Search</button>
+                                    <button type="submit" className="btn-search" onClick={handleSearchContent}>
+                                        <SearchIcon size={14} color="white" className="icon-search"/>Search
+                                    </button>
                                     {
                                         loadingContent ? (
                                             <div className="loading">

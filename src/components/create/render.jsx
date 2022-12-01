@@ -855,7 +855,7 @@ function renderField(field) {
         <div>
           <h1>Other information</h1>
           <div className="form">
-            <div className="tag">
+            {/* <div className="tag"> */}
               <div className="input-tag">
                 <input type="text" name="Other information" id="Other information" placeholder="Enter your Other information" className="input" value={valueTam} onChange={(e) => setValueTam(e.target.value)}/>
                 <button className="add-btn" onClick={addInput}>Add</button>
@@ -902,7 +902,7 @@ function renderField(field) {
 
               </div>
               </div>
-              </div>
+              {/* </div> */}
         </div>
       );
     default:

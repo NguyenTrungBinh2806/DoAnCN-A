@@ -3,7 +3,7 @@ import './view-more.css';
 import Navbar from '../navbar/navbar';
 // import firestore and query
 import {getFirestore, doc, getDoc, setDoc, getDocs, collection, query} from 'firebase/firestore';
-import { InfoSignIcon, SideSheet, Tooltip, Avatar } from 'evergreen-ui';
+import { InfoSignIcon, SideSheet, Tooltip, Avatar, WarningSignIcon } from 'evergreen-ui';
 // import react qr code
 import QRCode from 'react-qr-code';
 function ViewMore() {
@@ -366,28 +366,39 @@ function ViewMore() {
                         </div>
                         <div className='view-more-content-right-content-right'>
                             {
-                                dateList.map((date, index) => (
-                                    <div className='date-tab' key={index} onClick={() => handleTab(date)}>
+                                dateList && dateList.length > 0 ? (
+                                    <div className='view-more-content-right-content-right-list'>
                                         {
-                                            selectedTab === date ? (
-                                                <div className='date-tab-selected'
-                                                style={{color: '#0066CC', borderLeft: '7px solid #0066CC'}} 
-                                                
-                                                >
-                                                    <h3 onClick={() => handleList(date)}>{date}</h3>
-                                                </div>
-                                            ) : (
-                                                <div className='date-tab-not-selected'>
-                                                    <h3 onClick={() => handleList(date)}>{date}</h3>
-                                                </div>
-                                            )
-                                        }
-                                        
+                                            dateList.map((date, index) => (
+                                                <div className='date-tab' key={index} onClick={() => handleTab(date)}>
+                                                    {
+                                                        selectedTab === date ? (
+                                                            <div className='date-tab-selected'
+                                                            style={{color: '#0066CC', borderLeft: '7px solid #0066CC'}} 
+                                                            
+                                                            >
+                                                                <h3 onClick={() => handleList(date)}>{date}</h3>
+                                                            </div>
+                                                        ) : (
+                                                            <div className='date-tab-not-selected'>
+                                                                <h3 onClick={() => handleList(date)}>{date}</h3>
+                                                            </div>
+                                                        )
+                                                    }
+                                                    
 
+                                                </div>
+                                        ))
+                                    }
+                                    <div className='date-tab-view-details' onClick={() => handleShowView()}>View with details transaction</div>
+                                </div>
+                                ) : (
+                                    <div className='view-more-content-right-content-right-no-data'>
+                                        <WarningSignIcon  size={70} color="danger" />
+                                        <p className='no-click'>No data</p>
                                     </div>
-                                ))
+                                )  
                             }
-                            <div className='date-tab-view-details' onClick={() => handleShowView()}>View with details transaction</div>
                             <React.Fragment>
                             <SideSheet isShown={isShowView} onCloseComplete={() => setIsShowView(false)}>
                             <div className="timeline">

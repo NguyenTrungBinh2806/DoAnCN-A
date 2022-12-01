@@ -1,11 +1,12 @@
 import React, { Component, useEffect } from 'react';
-import { SideSheet, Paragraph, Avatar } from 'evergreen-ui';
+import { SideSheet, Paragraph, Avatar, toaster } from 'evergreen-ui';
 import Register from '../register/register';
 import Login from '../login/login';
 import { Dialog, Popover, Menu, Position } from 'evergreen-ui';
 // import PeopleIcon with evergreen-ui
-import { LogInIcon, AddIcon, PeopleIcon, EyeOpenIcon, LogOutIcon, TrashIcon } from 'evergreen-ui'
+import { LogInIcon, AddIcon, PeopleIcon, EyeOpenIcon, LogOutIcon, ResetIcon } from 'evergreen-ui'
 import { isLogin, getUserData, logout } from '../share/authService';
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import {getFirestore, doc, getDoc} from 'firebase/firestore';
 import './navbar.css'
 function Navbar() {
@@ -56,6 +57,24 @@ function Navbar() {
         const data = localStorage.getItem("token");
         window.location.href = "/profile/" + data;
     }
+
+
+    const [isShown4, setIsShown4] = React.useState(false)
+    const [emailReset, setEmailReset] = React.useState('');
+    const resetPassword = () => {
+        // reset password
+        const auth = getAuth();
+        sendPasswordResetEmail(auth, emailReset)
+            .then(() => {
+                // Email sent.
+                toaster.success('Email sent successfully, please check your email');
+                setIsShown4(false);
+            })
+            .catch((error) => {
+                // An error happened.
+                toaster.danger(error.message);
+            });
+    }
         return(
              <div className='navbar'>
                 <div className='content-link'>
@@ -76,6 +95,7 @@ function Navbar() {
                                         <Menu>
                                         <Menu.Group>
                                             <Menu.Item icon={PeopleIcon} onSelect={handleProfile}>your profile</Menu.Item>
+                                            <Menu.Item icon={ResetIcon} onSelect={() => setIsShown4(true)}>Reset password</Menu.Item>
                                             {/* <Menu.Item icon={EyeOpenIcon}>view your CV</Menu.Item> */}
                                         </Menu.Group>
                                         <Menu.Divider />
@@ -97,6 +117,17 @@ function Navbar() {
                                         confirmLabel="Logout"
                                         >
                                         <Paragraph>Are you sure you want to logout?</Paragraph>
+                                    </Dialog>
+                                    <Dialog
+                                        isShown={isShown4}
+                                        title="Reset password"
+                                        intent="warning"
+                                        onCloseComplete={() => setIsShown4(false)}
+                                        onConfirm={resetPassword}
+                                        confirmLabel="Reset"
+                                        >
+                                        <Paragraph>Please enter your email to reset password</Paragraph>
+                                        <input type='email' className='input-login' placeholder='Email' value={emailReset} onChange={(e) => setEmailReset(e.target.value)} />
                                     </Dialog>
                             </div>
                         ) : (
@@ -121,8 +152,6 @@ function Navbar() {
                         )}
 
                 </div>
-
-              
              </div>
         )
 }

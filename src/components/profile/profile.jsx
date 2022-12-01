@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './profile.css';
 import {getDoc, getFirestore, doc, updateDoc} from 'firebase/firestore';
-import { toaster, Avatar, WarningSignIcon, EditIcon, Dialog, FileUploader, FileCard } from 'evergreen-ui';
-
+import { toaster, Avatar, WarningSignIcon, EditIcon, Dialog, FileUploader, FileCard, Tooltip, Button, ShareIcon, ClipboardIcon } from 'evergreen-ui';
+import QRCode from 'react-qr-code';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import Navbar from '../navbar/navbar';
 function Profile(){
@@ -71,6 +71,7 @@ function Profile(){
             toaster.danger("Update bio failed!");
         });
         setIsShown(false);
+        getUserData();
         // reload page
         // window.location.reload();
     }
@@ -115,6 +116,7 @@ function Profile(){
                 }).then(() => {
                     toaster.success("Update image successfully!");
                     setIsShown2(false);
+                    getUserData();
                 }
                 ).catch((error) => {
                     toaster.danger("Update image failed!");
@@ -125,9 +127,25 @@ function Profile(){
     }
 
 
+
     useEffect(() => {
         getUserData();
     }, []);
+
+    const [copyCV, setCopyCV] = useState('');
+    const [isShown3, setIsShown3] = useState(false);
+    const getCopyCV = (cvId) => {
+        setCopyCV(cvId);
+        setIsShown3(true);
+    }
+
+    const copyToClipboard = () => {
+        // copy url of domain/view/cvId to clipboard
+        navigator.clipboard.writeText(`http://localhost:3000/view/${copyCV}`);
+        toaster.success("Copy to clipboard successfully!");
+        // setIsShown3(false);
+        
+    }
 
    
 
@@ -175,10 +193,27 @@ function Profile(){
                        cvList.length > 0 ? cvList.map((cv, index) => {
                             return(
                                  <div className="profile-body-right-cv" key={index}>
-                                    <p>title: {cv.name}</p>
-                                    <p>create at: {cv.createdAt}</p>
+                                    
+                                   
                                     {/* link to view */}
-                                    <a href={`/view/${cv.id}`} className="profile-body-right-cv-link">View</a>
+                                    <table className="table-cv">
+                                        <tbody>
+                                        <tr>
+                                            <td className='column-table'>
+                                            <p>title: {cv.name}</p>
+                                            </td>
+                                            <td className='column-table-1'>
+                                            <p>create at: {cv.createdAt}</p>
+                                            </td>
+                                            <td className='column-table-2'>
+                                            <a href={`/view/${cv.docId}`} className="profile-body-right-cv-link">View</a>
+                                            <Button className="profile-body-right-cv-btn" iconBefore={ShareIcon} appearance="primary" onClick={() => getCopyCV(cv.docId)}>Share</Button>
+                                            </td>
+
+                                        </tr>
+                                        </tbody>
+
+                                    </table>
                                  </div>
                             )
                           }
@@ -238,6 +273,33 @@ function Profile(){
                     }}
                     values={files}
                 />
+                </div>
+            </Dialog>
+            <Dialog
+                isShown={isShown3}
+                title="Share CV"
+                onCloseComplete={() => setIsShown3(false)}
+                hasFooter={false}
+            >
+                <div className="dialog-body">
+                    
+                    <div className="dialog-body-link">
+                        <p>Copy this link to share your CV</p>
+                        <div className="dialog-body-link-text">
+                            <input className="dialog-input" value={`http://localhost:3000/view/${copyCV}`} readOnly/>
+                            <div className="clipboard-icon">
+                                <ClipboardIcon  size={20} color="info" onClick={() => copyToClipboard()} Style="cursor: pointer;"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <QRCode value={`http://localhost:3000/view/${copyCV}`} 
+                        size={200}
+                        Style="margin: 0 auto;"/>
+
+                        
+                    </div>
+                    
+
                 </div>
             </Dialog>
         </div>
