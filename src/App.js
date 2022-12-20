@@ -8,13 +8,14 @@ import ViewMore from './components/view/view-more';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {isLogin} from './components/share/authService';
 import Profile from './components/profile/profile';
+import Home from './components/home/home';
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="*" element={<StartCreate />}/>
-          <Route path="/" element={<ViewCV />} />
+          <Route path="*" element={<Home />}/>
+          <Route path="/" element={<Home />} />
           {/* user have to logged in can route to create + paramaters  */}
           {isLogin() && <Route path="/create/:id" element={<CreateCV />} />}
           {isLogin() && <Route path="/profile/:id" element={<Profile />} />}

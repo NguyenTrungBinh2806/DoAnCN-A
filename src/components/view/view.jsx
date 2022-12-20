@@ -154,7 +154,7 @@ function ViewCV(){
                                 <div className="search-by-cv">
                                     <form onSubmit={handleSearch}>
                                         {/* <label htmlFor="search" className='label-search'>Search</label> */}
-                                        <h1>Search by ID</h1>
+                                        <h1 className="search-title">Search by ID</h1>
                                         <input type="text" placeholder="Search..." className="input-search" onChange={(e) => setSearch(e.target.value)}/>
                                         <button type="submit" className="btn-search">
                                             <SearchIcon size={14} color="white" className="icon-search"/>Search
@@ -202,7 +202,7 @@ function ViewCV(){
                                 </div>
                             ) : (
                                 <div className="search-by-content">
-                                    <h1>Search by content</h1>
+                                    <h1 className="search-title">Search by content</h1>
                                     <input type="text" placeholder="Search..." className="input-search" onChange={(e) => setSearchContent(e.target.value)}/>
                                     <button type="submit" className="btn-search" onClick={handleSearchContent}>
                                         <SearchIcon size={14} color="white" className="icon-search"/>Search

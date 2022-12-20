@@ -11,7 +11,7 @@
     margin-bottom: 10px;
 }
 .input-search{
-    width: 74%;
+    width: 85%;
     height: 40px;
     border: 2px solid gray;
     font-size: 16px;
@@ -47,7 +47,7 @@
 
 .tab-view{
     text-align: left;
-    width: 100%;
+    width: 95%;
     margin-left: 5%;
     margin-right: 5%;
     margin-top: 40px;
@@ -66,7 +66,7 @@
 
 .search-result-content-item{
     display: inline-flex;
-    width: 80%;
+    width: 93%;
     margin-bottom: 20px;
     border-radius: 5px;
     border: 1px solid #0066CC;
@@ -98,7 +98,7 @@
     color:red
 }
 .search-result-content{
-    width: 85%;
+    width: 92%;
     margin-top: 20px;
     padding-top: 2px;
     padding-bottom: 20px;
@@ -107,7 +107,7 @@
     padding-left: 2%;
 }
 .search-result-content-items-2{
-    width: 100%;
+    width: 80%;
     display: inline-flex;
 }
 .card-search-content{
@@ -146,4 +146,7 @@
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+}
+.search-title{
+    width: 30%;
 }

@@ -57,7 +57,7 @@ function CreateCV() {
         return(
             <div className='create-cv'>
                 <Navbar />
-                <button onClick={cutIdParam}>cut id</button>
+                {/* <button onClick={cutIdParam}>cut id</button> */}
                 <div className='cv-content'>
                     <div className='left-content'>
                     <Menu className='menu'>

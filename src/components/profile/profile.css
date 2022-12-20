@@ -56,12 +56,21 @@
 .profile-body-left{
     width: 30%;
     min-height: 500px;
-    padding-top: 20px;
-    padding-left: 3%;
-    padding-right: 3%;
-    background-color: #DDDDDD;
+    /* padding-top: 20px; */
+    /* padding-left: 3%;
+    padding-right: 3%; */
+    /* background-color: #DDDDDD; */
     
     /* background-color: #0066FF; */
+}
+
+.profile-info-box{
+    width: 90%;
+    margin: 0 auto;
+    background-color: #DDDDDD;
+    padding: 3% 3% 3% 3%;
+    border-radius: 5px;
+
 }
 
 /* if screen with < 700px, the p tag of profile-body-left will change to ... if data > 30  */
@@ -81,7 +90,7 @@
 }
 
 .profile-body-right-cv{
-    width: 91%;
+    width: 100%;
     border: 2px solid #0066FF;
     min-height: 60px;
     margin-left: 5%;

@@ -255,12 +255,15 @@ function StartCreate(){
                                             <h4>transaction hash: 
                                             <br/>
                                                 <a href={`https://goerli.etherscan.io/tx/${data.transaction}`} target="_blank" rel="noopener noreferrer" className='trans-hash-link'>
-                                                    {/* if string more than 20, change to ... */}
                                                     {data.transaction.length > 60 ? data.transaction.substring(0, 60) + '...' : data.transaction}
                                                 </a>
                                                 <br/>
                                                 <br/>
-                                                <QRCode value={`https://goerli.etherscan.io/tx/${data.transaction}`} size={150} />
+                                                <div style={{width: '170px', height: '170px', textAlign: 'center', backgroundColor: 'white', borderRadius: '10px'}}>
+                                                    <div style={{paddingTop: '10px'}}>
+                                                        <QRCode value={`https://goerli.etherscan.io/tx/${data.transaction}`} size={150} />
+                                                    </div>
+                                                </div>
                                             </h4>
                                             </div>
                                         </li> 

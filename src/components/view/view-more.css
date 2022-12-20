@@ -130,7 +130,6 @@
   text-align: center;
 }
 
-
-
-
-
+.date-data:hover{
+  color: #009966; 
+}

@@ -200,8 +200,8 @@ function Register(){
     return(
         <div className='register-page'>
             <h1 className='register-title'>Register</h1>
-            <button onClick={checkIsUser}>check</button>
-            <button onClick={removeUser}>remove</button>
+            {/* <button onClick={checkIsUser}>check</button>
+            <button onClick={removeUser}>remove</button> */}
             <form className='register-form' onSubmit={register}>
                     <label htmlFor='name' className='register-label'>Name</label><br/>
                     <input type='text' name='name' id='name' className='input-field' placeholder='Enter your Name ...' value={state.name} onChange={(e) => setState({...state, name: e.target.value})}/>

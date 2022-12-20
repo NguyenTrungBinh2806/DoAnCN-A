@@ -172,20 +172,22 @@ function Profile(){
             </div>
             <div className="profile-body">
                 <div className="profile-body-left">
-                    <label className="profile-body-left-label">Email</label>
-                    <p>{userData?.email}</p>
-                    <br/>
-                    <label className="profile-body-left-label">Bio</label>
-                    {/* set is show true when click this icom */}
-                    <EditIcon className="edit-icon" size={18} color="info" onClick={() => setIsShown(true)}/>
-                    <p>{userData?.bio}</p>
-                    <br/>
-                    <label className="profile-body-left-label">MetaMask wallet address</label>
-                    <p>{userData?.walletAddress}</p>
-                    <div className="profile-body-left-button">
-                        <button className="profile-body-left-btn" onClick={() => setIsShown2(true)}>Change avatar</button>
-                        {/* <input type="file" id="file" className="input-file" onChange={(e) => setFiles(e.target.files[0])}/>
-                        <button className="profile-body-left-btn" onClick={() => uploadImage()}>Save</button> */}
+                    <div className="profile-info-box">
+                        <label className="profile-body-left-label">Email</label>
+                        <p>{userData?.email}</p>
+                        <br/>
+                        <label className="profile-body-left-label">Bio</label>
+                        {/* set is show true when click this icom */}
+                        <EditIcon className="edit-icon" size={18} color="info" onClick={() => setIsShown(true)}/>
+                        <p>{userData?.bio}</p>
+                        <br/>
+                        <label className="profile-body-left-label">MetaMask wallet address</label>
+                        <p>{userData?.walletAddress}</p>
+                        <div className="profile-body-left-button">
+                            <button className="profile-body-left-btn" onClick={() => setIsShown2(true)}>Change avatar</button>
+                            {/* <input type="file" id="file" className="input-file" onChange={(e) => setFiles(e.target.files[0])}/>
+                            <button className="profile-body-left-btn" onClick={() => uploadImage()}>Save</button> */}
+                        </div>
                     </div>
                 </div>
                 <div className="profile-body-right">

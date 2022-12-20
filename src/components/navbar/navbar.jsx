@@ -62,25 +62,76 @@ function Navbar() {
     const [isShown4, setIsShown4] = React.useState(false)
     const [emailReset, setEmailReset] = React.useState('');
     const resetPassword = () => {
-        // reset password
         const auth = getAuth();
-        sendPasswordResetEmail(auth, emailReset)
-            .then(() => {
-                // Email sent.
-                toaster.success('Email sent successfully, please check your email');
-                setIsShown4(false);
-            })
-            .catch((error) => {
-                // An error happened.
-                toaster.danger(error.message);
-            });
+        // sendPasswordResetEmail(auth, emailReset)
+        //     .then(() => {
+        //         // Email sent.
+        //         toaster.success('Email sent successfully, please check your email');
+        //         setIsShown4(false);
+        //     })
+        //     .catch((error) => {
+        //         // An error happened.
+        //         toaster.danger(error.message);
+        //     });
+        if(emailReset === ''){
+            toaster.danger('Please enter your email');
+            // set border color to red <input type='email' className='input-login' placeholder='Email' value={emailReset} onChange={(e) => setEmailReset(e.target.value)} />
+            document.getElementById('email-reset').style.borderColor = 'red';
+        }
+        else{
+        //    nếu userInfo.email bằng emailReset, không tính ký tự hoa thường, thì gửi email reset password
+            if(userInfo.email.toString().toLowerCase() === emailReset.toString().toLowerCase()){
+                sendPasswordResetEmail(auth, emailReset)
+                    .then(() => {
+                        // Email sent.
+                        toaster.success('Email sent successfully, please check your email');
+                        setIsShown4(false);
+                    })
+                    .catch((error) => {
+                        // An error happened.
+                        toaster.danger(error.message);
+                    });
+            }
+            else{
+                document.getElementById('email-reset').style.borderColor = 'red';
+                toaster.danger('Email does not exist');
+            }
+        }
+       
     }
+    const menuTab = ['Home', 'Create CV', 'Search CV'];
+    const menuTabLink = ['/', '/startCreate', '/view'];
+
+
+
+
+
         return(
              <div className='navbar'>
                 <div className='content-link'>
-                    <a href='/' className='link'>Home</a>
+                    {/* <a href='/' className='link'>Home</a>
                     <a href='/startcreate' className='link'>Create CV</a>
-                    <a href='/view' className='link'>View CV</a>
+                    <a href='/view' className='link'>View CV</a> */}
+                    {
+                        menuTab.map((item, index) => {
+                            return <a href={menuTabLink[index]} className='link'
+                            // style={{backgroundColor: window.location.pathname === menuTabLink[index] ? '#f5f5f5' : '',
+                            // color: window.location.pathname === menuTabLink[index] ? 'blue' : '',
+                            // padding: window.location.pathname === menuTabLink[index] ? '0px 10px 30px 10px' : '0px',
+                            // borderTopLeftRadius: window.location.pathname === menuTabLink[index] ? '10px' : '',
+                            // borderTopRightRadius: window.location.pathname === menuTabLink[index] ? '10px' : '',
+                            // }}
+                            style={{
+                                borderBottom: window.location.pathname === menuTabLink[index] ? '5px solid white' : '',
+                                borderRadius: window.location.pathname === menuTabLink[index] ? '2px' : '',
+                                paddingBottom: window.location.pathname === menuTabLink[index] ? '24px' : '',
+
+                            }}
+                            >{item}</a>
+                        })
+                    }
+                   
+
                     <span className='span'/>
                         {/* if user is logged in, show avatar and Name, else show login and register button  */}
                         {isLoginState ? (
@@ -126,8 +177,10 @@ function Navbar() {
                                         onConfirm={resetPassword}
                                         confirmLabel="Reset"
                                         >
-                                        <Paragraph>Please enter your email to reset password</Paragraph>
-                                        <input type='email' className='input-login' placeholder='Email' value={emailReset} onChange={(e) => setEmailReset(e.target.value)} />
+                                        <Paragraph>Please confirm your email to reset password: 
+                                            <p style={{color: 'blue', fontWeight: '600'}}>{userInfo?.email.toString().toLowerCase()}</p>
+                                        </Paragraph>
+                                        <input type='email' className='input-login' id='email-reset' placeholder='Email' value={emailReset} onChange={(e) => setEmailReset(e.target.value)} />
                                     </Dialog>
                             </div>
                         ) : (
