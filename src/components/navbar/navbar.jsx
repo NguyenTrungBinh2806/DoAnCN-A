@@ -63,16 +63,6 @@ function Navbar() {
     const [emailReset, setEmailReset] = React.useState('');
     const resetPassword = () => {
         const auth = getAuth();
-        // sendPasswordResetEmail(auth, emailReset)
-        //     .then(() => {
-        //         // Email sent.
-        //         toaster.success('Email sent successfully, please check your email');
-        //         setIsShown4(false);
-        //     })
-        //     .catch((error) => {
-        //         // An error happened.
-        //         toaster.danger(error.message);
-        //     });
         if(emailReset === ''){
             toaster.danger('Please enter your email');
             // set border color to red <input type='email' className='input-login' placeholder='Email' value={emailReset} onChange={(e) => setEmailReset(e.target.value)} />

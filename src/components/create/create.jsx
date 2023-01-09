@@ -8,10 +8,7 @@ import {  doc, getDoc, getFirestore } from "firebase/firestore";
 import db from '../../environment/firebase';
 function CreateCV() {
         const [selectedField, setSelectedField] = React.useState('asc')
-       
-        const [valueList, setValueList] = useState([]);
-       
-
+    
         // const { getSkillList, getExperineceList, getCertificateList, getAchievementList, getActivityList, getEducationList } = render();
         // when click skill field, it will show the skill form field in the right side
         const handleFieldClick = (field) => {
@@ -47,13 +44,6 @@ function CreateCV() {
             getInformation();
         }, [idParam])
 
-
-    
-               
-
-
-
-
         return(
             <div className='create-cv'>
                 <Navbar />
@@ -84,7 +74,7 @@ function CreateCV() {
                            {renderField(selectedField)}
                         </div>
                         <div className='right'>
-                            <h2>infromation CV</h2>
+                            <h2>information CV</h2>
                             <hr/>
                             <div className='information'>
                                 <div className='information-item'>
@@ -92,8 +82,6 @@ function CreateCV() {
                                     <p>{cvData.name}</p>
                                     <label className='label-cv'>Created at: </label>
                                     <p>{cvData.createdAt}</p>
-
-
                                 </div>
                             </div>
                         </div>

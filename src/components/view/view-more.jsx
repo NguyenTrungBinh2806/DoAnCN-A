@@ -74,7 +74,9 @@ function ViewMore() {
     const activity = [];
     const other = [];
     data.forEach((item) => {
-      if (item.createdAt <= date[0]) {
+      const createdAt = Date.now(item.createdAt);
+      console.log(item.createdAt);
+      if (createdAt <= Date.now(date[0])) {
         // console.log(item.data);
         if (item.type === "Skill") {
           // đẩy dữ liệu vào mảng skill theo 1 chiều
@@ -165,8 +167,15 @@ function ViewMore() {
     const certification = [];
     const activity = [];
     const other = [];
+    const dateSelected = date.split(",").reverse().join(",");
     dataList.forEach((item) => {
-      if (item.createdAt <= date) {
+      // đảo ngược createdAt thành yyyy-mm-dd hh:mm:ss để so sánh
+      const createdAt = item.createdAt.split(",").reverse().join(",");
+      console.log(createdAt);
+
+
+
+      if (createdAt <= dateSelected) {
         // console.log(item.data);
         if (item.type === "Skill") {
           // đẩy dữ liệu vào mảng skill theo 1 chiều

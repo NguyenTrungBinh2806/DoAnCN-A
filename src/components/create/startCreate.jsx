@@ -6,14 +6,11 @@ import Login from '../login/login';
 import { getUserData, isLogin } from '../share/authService';
 import {getFirestore, doc, getDoc, setDoc, getDocs, collection} from 'firebase/firestore';
 import './startCreate.css';
-import { recieveValue, shareValue } from '../share/APIService';
 // import { getIdToken } from 'firebase/auth';
 function StartCreate(){
     const [isShown, setIsShown] = React.useState(false);
     const [isShown2, setIsShown2] = React.useState(false);
     const [nameCv, setNameCv] = React.useState('');
-    const [cvId, setCvId] = React.useState([]);
-    const [showState, setShowState] = React.useState(false);
     const handleCreate = async () => {
         const docId = Date.now().toString();
         if(nameCv === ''){
@@ -118,7 +115,6 @@ function StartCreate(){
             setCvList(res);
         });
         console.log(cvList);
-        setShowState(true);
     }
 
     // get docid and link to create page
@@ -206,17 +202,11 @@ function StartCreate(){
                                     <div className='content-card' key={index}>
                                         {/* when cv.name so long, it will change cv.name to ... */}
                                         <h4 className='title-content-card-header'>{cv.name.length > 18 ? cv.name.substring(0, 18) + '...' : cv.name}</h4>
-                                        {/* <h4 className='title-card-render' >{cv.name}</h4> */}
-                                        {/* <DocumentIcon size={100} color="info" className='icon-doc' /> */}
-                                        {/* document icon will have size is 10% of screen */}
                                         <DocumentIcon color="info" className='icon-doc' />
                                         <br></br>
                                         <Button appearance="primary" marginY={12}  marginRight={12} className="btn-tab"  onClick={()=>handleEdit(cv.docId)}>Edit</Button>
                                         <Button intent="none" iconBefore={ManualIcon} marginY={12} className="btn-tab"  marginRight={12} onClick={()=>handleview(cv.docId)}>History</Button>
                                         <Button intent="success" marginY={12} className="btn-tab-view"  marginRight={12} onClick={()=>handleViewAll(cv.docId)}>View</Button>
-                                        {/* <div className='header-card'>
-                                            <MoreIcon size={20} color="info" className='icon-more' />
-                                        </div> */}
                                         
                                     </div>
                                     

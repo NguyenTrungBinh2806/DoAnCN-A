@@ -170,17 +170,6 @@ function renderField(field) {
     }
   }, [valueList, valueList2]);
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [id, setId] = useState("");
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  // const [data, setData] = useState([]);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [txh, setTxh] = useState("");
- 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [idToken, setIdToken] = useState("");
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [stateValue, setStateValue] = useState(false);
   const checkIdParam = async (id) => {
     // get id token
     const idToken = await localStorage.getItem('token');
@@ -220,9 +209,6 @@ function renderField(field) {
       return contract;
   };
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [isOwnerOrManager, setIsOwnerOrManager] = useState(false);
-
   const checkUser = async () => {
       const contract = await connectToBlockchain();
       const walletAddress = await getWalletAddress();
@@ -237,59 +223,6 @@ function renderField(field) {
       return accounts[0];
   };
 
-  // const addCells1 = async () => {
-  //   // cut id param
-  //   const ids = window.location.href.split("/")[4];
-  //   const docid = Date.now().toString();
-  //   // const cellsRef = doc(db, "cells", ids, "elements", docid);
-  //   // await setDoc(cellsRef, {
-  //   //   id: docid,
-  //   //   type: field,
-  //   //   data: valueList3,
-  //   //   txh: txh,
-  //   //   createdAt: new Date().toLocaleString(),
-  //   // });
-  //   // // if success then alert
-  //   // toaster.success("add new " + field + " success");
-
-  //   const createdAt = new Date().toLocaleString();
-  //   console.log(createdAt);
-
-  //   // parse dataList3 to string with special character is #
-  //   const data = valueList3.join("#");
-    
-  //   console.log(data);
-  //   // check user is owner or manager and add data to blockchain and firestore
-  // // checkUser();
-
-  //   // if user is owner or manager then add data to blockchain and firestore
-  //   console.log(isOwnerOrManager);
-  //   if (isOwnerOrManager === true) {
-  //     const contract = await connectToBlockchain();
-  //     const walletAddress = await getWalletAddress();
-  //     // add data to blockchain
-  //     // console.log(typeof(field));
-  //     const tx = await contract.addCVDetails(field, createdAt, data,  walletAddress );
-  //     const txh = tx.hash;
-  //     console.log(txh);
-  //     // add data to firestore
-  //     const cellsRef = doc(db, "cells", ids, "elements", docid);
-  //     await setDoc(cellsRef, {
-  //       id: docid,
-  //       type: field,
-  //       data: valueList3,
-  //       txh: txh,
-  //       createdAt: createdAt,
-  //     });
-  //     // if success then alert
-  //     toaster.success("add new " + field + " success");
-  //   } else {
-  //     alert("Bạn không có quyền truy cập");
-  //   }
-
-  // };
-
-  // // };
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isShowOverlay, setIsShowOverlay] = useState(false);
 
@@ -902,7 +835,6 @@ function renderField(field) {
 
               </div>
               </div>
-              {/* </div> */}
         </div>
       );
     default:
