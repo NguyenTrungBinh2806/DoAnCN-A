@@ -36,7 +36,8 @@
 .content-card{
     width: 200px;
     background-color: white;
-    height: 310px;
+    min-height: 250px;
+    max-height: 350px;
     margin-left: 2%;
     /* margin-top: 20px; */
     /* margin-right: 2%; */
