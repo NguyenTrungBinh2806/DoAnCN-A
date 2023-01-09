@@ -202,7 +202,7 @@ function StartCreate(){
                                     <div className='content-card' key={index}>
                                         {/* when cv.name so long, it will change cv.name to ... */}
                                         <h4 className='title-content-card-header'>{cv.name.length > 18 ? cv.name.substring(0, 18) + '...' : cv.name}</h4>
-                                        <DocumentIcon color="info" className='icon-doc' />
+                                        <DocumentIcon color="info" className='icon-doc' style={{width: '40%', height: '40%', marginTop: '2%', paddingRight: '10px'}} />
                                         <br></br>
                                         <Button appearance="primary" marginY={12}  marginRight={12} className="btn-tab"  onClick={()=>handleEdit(cv.docId)}>Edit</Button>
                                         <Button intent="none" iconBefore={ManualIcon} marginY={12} className="btn-tab"  marginRight={12} onClick={()=>handleview(cv.docId)}>History</Button>
