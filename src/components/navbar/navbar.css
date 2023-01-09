@@ -39,9 +39,9 @@
     /* no underline */
     text-decoration: none;
 }
-.login:hover{
+/* .login:hover{
     color: #0066FF;
-}
+} */
 .dialog-login{
     position: absolute;
 }
