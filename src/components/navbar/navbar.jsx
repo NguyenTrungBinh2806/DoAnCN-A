@@ -47,9 +47,10 @@ function Navbar() {
         }
     }, [userData])
     const handleLogout = () => {
-        logout();
-        setIsLoginState(false);
+        // setIsShown3(false);
+        // setIsLoginState(false);
         setUserData(null);
+        logout();
     }
 
     const handleProfile = () => {
@@ -99,18 +100,9 @@ function Navbar() {
         return(
              <div className='navbar'>
                 <div className='content-link'>
-                    {/* <a href='/' className='link'>Home</a>
-                    <a href='/startcreate' className='link'>Create CV</a>
-                    <a href='/view' className='link'>View CV</a> */}
                     {
                         menuTab.map((item, index) => {
                             return <a href={menuTabLink[index]} className='link'
-                            // style={{backgroundColor: window.location.pathname === menuTabLink[index] ? '#f5f5f5' : '',
-                            // color: window.location.pathname === menuTabLink[index] ? 'blue' : '',
-                            // padding: window.location.pathname === menuTabLink[index] ? '0px 10px 30px 10px' : '0px',
-                            // borderTopLeftRadius: window.location.pathname === menuTabLink[index] ? '10px' : '',
-                            // borderTopRightRadius: window.location.pathname === menuTabLink[index] ? '10px' : '',
-                            // }}
                             style={{
                                 borderBottom: window.location.pathname === menuTabLink[index] ? '5px solid white' : '',
                                 borderRadius: window.location.pathname === menuTabLink[index] ? '2px' : '',

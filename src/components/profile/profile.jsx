@@ -141,7 +141,7 @@ function Profile(){
 
     const copyToClipboard = () => {
         // copy url of domain/view/cvId to clipboard
-        navigator.clipboard.writeText(`http://localhost:3000/view/${copyCV}`);
+        navigator.clipboard.writeText(`https://do-an-cn-a.vercel.app/view/${copyCV}`);
         toaster.success("Copy to clipboard successfully!");
         // setIsShown3(false);
         

@@ -50,15 +50,15 @@
     /* no underline */
     text-decoration: none;
 }
-.register:hover{
+/* .register:hover{
     color: #0066FF;
     cursor: pointer;
-}
+} */
 .name{
     padding-top: 10px;
     padding-left: 10px;
     cursor: pointer;
 }
-.name:hover{
+/* .name:hover{
     color: #0066FF;
-}
+} */
