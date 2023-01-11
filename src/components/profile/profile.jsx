@@ -288,13 +288,13 @@ function Profile(){
                     <div className="dialog-body-link">
                         <p>Copy this link to share your CV</p>
                         <div className="dialog-body-link-text">
-                            <input className="dialog-input" value={`http://localhost:3000/view/${copyCV}`} readOnly/>
+                            <input className="dialog-input" value={`https://do-an-cn-a.vercel.app/view/${copyCV}`} readOnly/>
                             <div className="clipboard-icon">
                                 <ClipboardIcon  size={20} color="info" onClick={() => copyToClipboard()} Style="cursor: pointer;"/>
                             </div>
                         </div>
                         <br/>
-                        <QRCode value={`http://localhost:3000/view/${copyCV}`} 
+                        <QRCode value={`https://do-an-cn-a.vercel.app/view/${copyCV}`} 
                         size={200}
                         Style="margin: 0 auto;"/>
 
